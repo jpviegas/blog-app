@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --color-lightGreen: #b9e7e7;
+    --color-secondary: 111 114 185;
+  }
+}
