@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <header className="flex flex-row justify-around pt-4">
+    <header className="top-0 flex justify-around bg-indigo-200 p-4 md:sticky md:flex-row">
       <div>
         <Link to={"/"}>LOGO</Link>
       </div>
       <nav>
-        <ul className="flex gap-3 text-xl">
+        <ul className="flex flex-col gap-3 text-xl sm:flex-row">
           <li>
             <Link to={"/?cat=art"}>ART</Link>
           </li>

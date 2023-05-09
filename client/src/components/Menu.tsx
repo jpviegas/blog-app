@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Home() {
-  window.document.title = "Home | Blog App";
-
+export default function Menu() {
   const posts = [
     {
       id: 1,
@@ -27,28 +25,24 @@ export default function Home() {
   ];
 
   return (
-    <main className="h-full sm:px-px sm:text-base md:text-xl">
-      <section className="flex h-full flex-col md:px-24">
-        {posts.map((post) => (
-          <article
-            className="flex flex-row items-center gap-8 py-8 odd:flex-row-reverse"
-            key={post.id}
-          >
-            <div className="bg-black p-24 md:p-40"></div>
-            <div>
-              <header className="py-8 text-center">
-                <Link className="underline" to={`/post/${post.id}`}>
-                  {post.title}
-                </Link>
-              </header>
-              <p className="text-justify">{post.desc}</p>
-              <button className="rounded-md bg-[--color-lightGreen] p-1">
-                Read More...
-              </button>
-            </div>
-          </article>
-        ))}
-      </section>
-    </main>
+    <aside className="flex-[2]  bg-slate-600">
+      <h1 className="text-center">Other posts you may like</h1>
+      {posts.map((post) => (
+        <article className="flex flex-col items-center py-2" key={post.id}>
+          <div className="w-full bg-black p-16"></div>
+          <div>
+            <header className="py-8">
+              <Link className="underline" to={`/post/${post.id}`}>
+                {post.title}
+              </Link>
+            </header>
+            {/* <p>{post.desc}</p> */}
+            <button className="rounded-md bg-[--color-lightGreen] p-1">
+              Read More...
+            </button>
+          </div>
+        </article>
+      ))}
+    </aside>
   );
 }

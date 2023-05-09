@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 export default function Login() {
+  window.document.title = "Login | Blog App";
+
   return (
     <main className="flex h-screen flex-col items-center justify-center bg-[--color-lightGreen]">
       <h1 className="mb-5 text-xl text-teal-900">Login</h1>
