@@ -37,9 +37,9 @@ function App() {
   ]);
 
   return (
-    <>
+    <div className="flex min-h-screen min-w-fit flex-col justify-between bg-gray-300 font-thin">
       <RouterProvider router={router}></RouterProvider>
-    </>
+    </div>
   );
 }
 
