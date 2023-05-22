@@ -9,7 +9,7 @@ export default function Register() {
     email: "email",
     password: "pass",
   });
-  const [error, setError] = useState("error");
+  const [error, setError] = useState();
   const navigate = useNavigate();
 
   const handleChange = (e) => {

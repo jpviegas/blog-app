@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { db } from "../db";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 type result = {
   id: number;
@@ -32,7 +33,7 @@ export const register = (req: Request, res: Response) => {
 };
 
 export const login = (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { username, password: bodyPass } = req.body;
 
   const querySelect = "SELECT * FROM users WHERE username = ?";
 
@@ -44,7 +45,7 @@ export const login = (req: Request, res: Response) => {
 
     if (result.length > 0) {
       const isPasswordCorrect = bcrypt.compareSync(
-        password,
+        bodyPass,
         result[0].password
       );
 
@@ -52,8 +53,22 @@ export const login = (req: Request, res: Response) => {
         return res.status(400).json("Wrong username or password!");
     }
 
-    return res.status(200).json("Logged successfully.");
+    const { JWT_KEY } = process.env;
+    const token = jwt.sign({ id: result[0].id }, `${JWT_KEY}`);
+    const { password, ...other } = result[0];
+    res
+      .cookie("acess_token", token, { httpOnly: true })
+      .status(200)
+      .json(other);
   });
 };
 
-export const logout = (req: Request, res: Response) => {};
+export const logout = (req: Request, res: Response) => {
+  res
+    .clearCookie("access_token", {
+      sameSite: "none",
+      secure: true,
+    })
+    .status(200)
+    .json("User has been logged out.");
+};

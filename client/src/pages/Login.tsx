@@ -1,6 +1,6 @@
-import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 export default function Login() {
   window.document.title = "Login | Blog App";
@@ -8,8 +8,10 @@ export default function Login() {
     username: "user",
     password: "pass",
   });
-  const [error, setError] = useState("error");
+  const [error, setError] = useState();
   const navigate = useNavigate();
+
+  const { currentUser, login } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -18,7 +20,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3001/api/auth/login", inputs);
+      await login(inputs);
       navigate("/");
     } catch (err) {
       setError(err.response.data);
